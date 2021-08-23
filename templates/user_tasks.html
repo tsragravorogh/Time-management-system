@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+
+<ul class="list-tasks">
+{% for t in tasks %}
+<li>
+<p class="task"><h3>{{t.task}} : Приоритет - {{ t.importance }}</h3></p>
+<p class="annonce">{{ t.description | striptags  }}</p>
+<form action="{{ url_for('delete_users_task', task_id=t.id) }}" method="post">
+<p> <input type="submit" value="Удалить задание у пользователя"></p>
+</form>
+</li>
+{% endfor %}
+</ul>
+{% endblock %}

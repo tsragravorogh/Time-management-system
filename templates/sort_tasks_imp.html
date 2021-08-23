@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+
+<form action="{{ url_for('user_index') }}" method="get">
+<p> <input type="submit" value="Отсортировать по времени добавления"></p>
+</form>
+<ul class="list-tasks">
+{% for t in tasks %}
+<li>
+<p class="task"><h3>{{t.task}} : Приоритет - {{t.importance}}</h3></p>
+<p class="annonce">{{ t.description | striptags  }}</p>
+<form action="{{ url_for('task_complete', task_id=t.id) }}" method="post">
+<p> <input type="submit" value="Выполнено"></p>
+</form>
+<form action="{{ url_for('change_task', task_id=t.id) }}" method="post">
+<p> <input type="submit" value="Изменить задание"></p>
+</form>
+<form action="{{ url_for('delete_task', task_id=t.id) }}" method="post">
+<p> <input type="submit" value="Удалить задание"></p>
+</form>
+</li>
+{% endfor %}
+</ul>
+{% endblock %}
